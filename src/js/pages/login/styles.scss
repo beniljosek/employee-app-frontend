@@ -1,0 +1,30 @@
+@import '../../theme/variables.scss';
+
+.loginContainer {
+    display: flex;
+    margin: 32px;
+    padding: 16px;
+    height: 800px;
+    border: 1px solid $brightGrey;
+    border-radius: 8px;
+
+    .leftSection {
+        background-color: $skyBlue;
+        flex: 1;
+        border-radius: 8px;
+    }
+
+    .rightSection {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .loginForm {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+        }
+    }
+}
