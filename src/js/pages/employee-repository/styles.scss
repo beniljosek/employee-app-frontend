@@ -1,0 +1,99 @@
+@import '../../theme/variables.scss';
+
+.emplyeeListContainer {
+    display: flex;
+    gap: 20px;
+
+    .leftSidebar {
+        border: 1px solid $brightGrey;
+        height: 900px;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+
+        .tab {
+            color: $white;
+            background-color: $lightBlue;
+            padding: 15px;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+        }
+    }
+
+    .rightSection {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        width: 100%;
+
+        .header {
+            box-shadow: 0px 3px 6px #9D9D9D29;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-radius: 8px;
+
+            .createButton {
+                display: flex;
+                align-items: center;
+                position: relative;
+                cursor: pointer;
+
+                .createCircle {
+                    padding: 10px 15px;
+                    background-color: $lightBlue;
+                    border-radius: 100%;
+                    position: absolute;
+                    left: -25px;
+                }
+
+                .createText {
+                    background-color: $skyBlue;
+                    padding: 10px 20px;
+                    border-top-right-radius: 16px;
+                    border-bottom-right-radius: 16px;
+                    box-shadow: 0 1px 9px 1px #9D9D9D29;
+                    border-radius: 5px;
+                }
+            }
+        }
+
+        .employeeTable {
+            width: 100%;
+
+            table {
+                border-collapse: separate;
+                border-spacing: 0px 10px;
+
+                thead {
+                    height: 40px;
+                    background: #EAF9FF;
+
+                    th {
+                        text-align: center;
+                        width: 300px;
+                    }
+                }
+
+                tbody {
+                    td {
+                        text-align: center;
+                        width: calc(100%/7);
+                    }
+                }
+
+
+                tr {
+                    box-sizing: border-box;
+                    height: 40px;
+                    box-shadow: 0 1px 9px 1px #9D9D9D29;
+                    border-radius: 8px;
+                    opacity: 1;
+                }
+
+            }
+        }
+    }
+}
