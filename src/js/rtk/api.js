@@ -34,10 +34,7 @@ export const employeeApi = createApi({
         getEmployee: builder.query({
             query: (id) => ({
                 url: `/employee/${id}`
-            }),
-            transformResponse: response => {
-                return response.data;
-            }
+            })
         }),
         deleteEmployee: builder.mutation({
             query: (id) => ({
