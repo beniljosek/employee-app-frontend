@@ -34,11 +34,10 @@ module.exports = {
                 test: /\.(sa|sc|c)ss$/, // styles files
                 use: ["style-loader", "css-loader", "sass-loader"],
             },
-            {
-                test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
-                loader: "url-loader",
-                options: { limit: false },
-            },
+            // {
+            //     test: /\.(png|svg|jpg|jpeg|gif)$/i,
+            //     type: 'icons',
+            // }
         ],
     },
 };

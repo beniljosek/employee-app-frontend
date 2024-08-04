@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
-import { useGetEmployeesQuery } from '../../rtk/employee';
+import { useGetEmployeesQuery } from '../../rtk/api';
 
 import './styles.scss';
 
@@ -20,6 +20,8 @@ const EmployeeRepository = () => {
         "Action"
     ];
 
+    const onCreateEmployeeClick = () => navigate(`/create`);
+
     const onEmployeeNameClick = (id) => navigate(`/employee/${id}`);
 
     return (
@@ -31,7 +33,7 @@ const EmployeeRepository = () => {
             <div className="rightSection">
                 <div className="header">
                     <span className="title">Employee List</span>
-                    <div className="createButton" role="presentation" onClick={() => console.log('create')}>
+                    <div className="createButton" role="presentation" onClick={onCreateEmployeeClick}>
                         <div className="createCircle">+</div>
                         <span className="createText">Create employee</span>
                     </div>

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { employeeApi } from "../rtk/employee";
+import { employeeApi } from "../rtk/api";
 import counterReducer from './slice/counterSlice';
 
 export const store = configureStore({

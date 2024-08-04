@@ -7,6 +7,7 @@ import Login from "./pages/login/login";
 import EmployeeRepository from "./pages/employee-repository/employeeRepository";
 import EmployeeDetails from "./pages/employee-details/employeeDetails";
 import { store } from "./store/store";
+import CreateEditEmployee from "./pages/create-edit-employee/createEditEmployee";
 
 const container = document.getElementById('app');
 const root = createRoot(container);
@@ -18,6 +19,7 @@ root.render(
                 <Route element={<Login />} path="/" />
                 <Route element={<EmployeeRepository />} path="/repository" />
                 {/* <Route element={<EmployeeDetails />} path="/" /> */}
+                <Route element={<CreateEditEmployee />} path="/create" />
             </Routes>
         </BrowserRouter>
     </Provider>
