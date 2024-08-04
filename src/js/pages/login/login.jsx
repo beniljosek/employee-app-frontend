@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FormInput from "../../components/form-input/formInput";
 import Button from "../../components/button/button";
+import { useLoginMutation } from "../../rtk/employee";
 
 import './styles.scss';
 
@@ -11,12 +12,19 @@ const Login = () => {
     
     const [credentials, setCredentials] = useState({ username: '', password: '' });
 
+    const [login, result] = useLoginMutation();
+
     const onChangeInput = (key, value) => {
-        console.log(key, value)
         setCredentials((current) => ({ ...current, [key]: value }))
     }
 
-    const onLoginClick = () => navigate('/repository')
+    // const onLoginClick = () => navigate('/repository')
+    const onLoginClick = async () => {
+        const output = await login(credentials);
+        console.log('result', result);
+        console.log('output', output);
+    }
+
 
     return (
         <div className="loginContainer">

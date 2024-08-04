@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
+import { useGetEmployeesQuery } from '../../rtk/employee';
+
 import './styles.scss';
 
 const EmployeeRepository = () => {
     const navigate = useNavigate();
+
+    const { data = [], error, isLoading } = useGetEmployeesQuery();
 
     const tableColumns = [
         "Employee Name",
@@ -15,8 +19,6 @@ const EmployeeRepository = () => {
         "Experience",
         "Action"
     ];
-
-    const data = [];
 
     const onEmployeeNameClick = (id) => navigate(`/employee/${id}`);
 
@@ -39,13 +41,13 @@ const EmployeeRepository = () => {
                         <thead>
                             <tr>
                                 {tableColumns.map((column) => (
-                                    <th>{column}</th>
+                                    <th key={column}>{column}</th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
                             {data.map((employee) => (
-                                <tr >
+                                <tr key={employee.id} >
                                     <td onClick={() => onEmployeeNameClick(employee.id)}>{employee.name}</td>
                                     <td>{employee.id}</td>
                                     <td>{employee.joiningdate}</td>

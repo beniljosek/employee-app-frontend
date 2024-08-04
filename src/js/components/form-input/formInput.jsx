@@ -3,14 +3,12 @@ import React from 'react';
 import './styles.scss';
 
 const FormInput = ({
-    className,
     label,
     onChange,
     placeHolder,
     type,
     value
 }) => {
-    console.log({ placeHolder, value });
     return (
         <div className="formInputContainer">
             <span className="label">{label}</span>
