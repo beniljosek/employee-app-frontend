@@ -8,7 +8,7 @@ import { useCreateEmployeeMutation, useGetEmployeeQuery } from "../../rtk/api";
 
 import './styles.scss';
 
-const CreateEditEmployee = ({ id }) => {
+const CreateEditEmployee = ({ id, mode }) => {
     const navigate = useNavigate();
 
     const defaultEmployeeState = {
@@ -29,22 +29,20 @@ const CreateEditEmployee = ({ id }) => {
     const roleOptions = ["DEVELOPER", "UI", "UX", "HR"];
     const statusOptions = ["ACTIVE", "INACTIVE"];
 
+    const fieldList = [
+        { label: "Employee Name", key: "name", type: "text" },
+        { label: "Joining Date", key: "date", type: "text" },
+        { label: "Experience (Yrs)", key: "experience", type: "number" },
+        { label: "Department", key: "department", type: "text" },
+        { label: "Role", key: "role", options: roleOptions },
+        { label: "Status", key: "status", options: statusOptions },
+        { label: "Address", key: "address", type: "text" },
+        { label: "Employee ID", key: "empId", type: "text" },
+    ];
+
+
     // useEffect(() => {
     //     console.log(data);
-    //     if (isSuccess) {
-    //         setEmployee({
-    //             ...data,
-    //             name: data.name,
-    //             email: data.email,
-    //             role: mapRoleBackendToFrontend(data.role),
-    //             status: mapStatusBackendToFrontend(data.status),
-    //             experience: Number(data.experience),
-    //             line1: data?.address?.line1,
-    //             pincode: data?.address?.pincode,
-    //             department: data?.department?.name,
-    //         });
-    //     }
-    //     console.log(employee);
     // }, [id, data, isSuccess]);
 
     const onChangeInput = (key, value) => {
@@ -76,13 +74,25 @@ const CreateEditEmployee = ({ id }) => {
             </div>
             <div className="formContainer">
                 <div className="formSection">
-                    <FormInput label="Employee Name" onChange={(value) => onChangeInput('name', value)} placeHolder="Employee Name" type="text" key="name" />
-                    <FormInput label="Joining Date" onChange={(value) => onChangeInput('date', value)} placeHolder="Joining Date" type="text" key="date" />
-                    <FormInput label="Experience (Yrs)" onChange={(value) => onChangeInput('experience', value)} placeHolder="Experience" type="number" key="experience" />
-                    <FormInput label="Department" onChange={(value) => onChangeInput('department', value)} placeHolder="Department" type="text" key="department" />
-                    <Dropdown label="Role" onChange={(value) => onChangeInput('role', value)} placeHolder="Role" options={roleOptions} key="role" />
-                    <Dropdown label="Status" onChange={(value) => onChangeInput('status', value)} placeHolder="Status" options={statusOptions} key="status" />
-                    <FormInput label="Address" onChange={(value) => onChangeInput('address', value)} placeHolder="Address" type="text" key="address" />
+                    {fieldList.map(({ label, key, type, options }) => {
+                        return type ? (
+                            <FormInput
+                                label={label}
+                                onChange={(value) => onChangeInput(key, value)}
+                                placeHolder={label}
+                                type={type}
+                                key={key}
+                            />
+                        ) : (
+                            <Dropdown
+                                label={label}
+                                onChange={(value) => onChangeInput(key, value)}
+                                placeHolder={label}
+                                options={options}
+                                key={key}
+                            />
+                        )
+                    })}
                 </div>
                 <div className="buttonsContainer">
                     <Button handleClick={createEmployee} label="Create" />

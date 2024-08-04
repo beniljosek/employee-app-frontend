@@ -17,4 +17,9 @@
         opacity: 1;
         border-radius: 8px;
     }
+
+    .disabled {
+        background-color: $brightGrey;
+        opacity: 0.8;
+    }
 }
