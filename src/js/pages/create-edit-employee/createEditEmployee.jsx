@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import FormInput from "../../components/form-input/formInput";
@@ -9,16 +9,20 @@ import { useCreateEmployeeMutation, useGetEmployeeQuery } from "../../rtk/api";
 import './styles.scss';
 
 const CreateEditEmployee = ({ id, mode }) => {
+    console.log('mode', mode);
     const navigate = useNavigate();
 
     const defaultEmployeeState = {
         name: "",
-        department: "",
-        date: "",
-        role: "",
-        status: "",
+        email: "",
+        password: "",
         experience: "",
+        // department: "",
+        // date: "",
+        role: "",
+        // status: "",
         address: "",
+        pincode: ""
     }
 
     const [employee, setEmployee] = useState(defaultEmployeeState);
@@ -31,21 +35,38 @@ const CreateEditEmployee = ({ id, mode }) => {
 
     const fieldList = [
         { label: "Employee Name", key: "name", type: "text" },
-        { label: "Joining Date", key: "date", type: "text" },
+        { label: "Email", key: "email", type: "text" },
         { label: "Experience (Yrs)", key: "experience", type: "number" },
-        { label: "Department", key: "department", type: "text" },
+        { label: "Password", key: "password", type: "password" },
+        // { label: "Department", key: "department", type: "text" },
+        // { label: "Joining Date", key: "date", type: "text" },
         { label: "Role", key: "role", options: roleOptions },
-        { label: "Status", key: "status", options: statusOptions },
+        // { label: "Status", key: "status", options: statusOptions },
         { label: "Address", key: "address", type: "text" },
-        { label: "Employee ID", key: "empId", type: "text" },
+        { label: "Pincode", key: "pincode", type: "number" },
+        { label: "Employee ID", key: "empId", type: "text", disabled: true },
     ];
 
+    useEffect(() => {
+        if (mode === "edit") {
+            console.log(id, data);
+        }
+    }, [id, data, isSuccess]);
 
-    // useEffect(() => {
-    //     console.log(data);
-    // }, [id, data, isSuccess]);
+    useEffect(() => {
+        console.log(result.isSuccess);
+        if (result.isSuccess) {
+            navigate('/repository');
+        } else if (result.isError) {
+            console.log(result.isError);
+        }
+    }, [result]);
 
     const onChangeInput = (key, value) => {
+        setEmployee((current) => ({ ...current, [key]: value }))
+    }
+
+    const onSelectInput = (key, value)  => {
         setEmployee((current) => ({ ...current, [key]: value }))
     }
 
@@ -54,10 +75,10 @@ const CreateEditEmployee = ({ id, mode }) => {
             name: employee.name,
             email: employee.email,
             password: employee.password,
-            role: mapRoleFrontendToBackend(employee.role),
-            status: mapStatusFrontendToBackend(employee.status),
+            role: employee.role,
+            status: employee.status,
             experience: Number(employee.experience),
-            address: { line1: employee.line1, pincode: employee.pincode },
+            address: { line1: employee.address, pincode: employee.pincode },
             department: employee.department,
         });
     }
@@ -74,9 +95,10 @@ const CreateEditEmployee = ({ id, mode }) => {
             </div>
             <div className="formContainer">
                 <div className="formSection">
-                    {fieldList.map(({ label, key, type, options }) => {
+                    {fieldList.map(({ label, key, type, options, disabled }) => {
                         return type ? (
                             <FormInput
+                                disabled={disabled}
                                 label={label}
                                 onChange={(value) => onChangeInput(key, value)}
                                 placeHolder={label}
@@ -86,7 +108,7 @@ const CreateEditEmployee = ({ id, mode }) => {
                         ) : (
                             <Dropdown
                                 label={label}
-                                onChange={(value) => onChangeInput(key, value)}
+                                onChange={(value) => onSelectInput(key, value)}
                                 placeHolder={label}
                                 options={options}
                                 key={key}
@@ -95,7 +117,7 @@ const CreateEditEmployee = ({ id, mode }) => {
                     })}
                 </div>
                 <div className="buttonsContainer">
-                    <Button handleClick={createEmployee} label="Create" />
+                    <Button handleClick={onCreateClick} label="Create" />
                     <Button handleClick={onCancelClick} label="Cancel" />
                 </div>
             </div>

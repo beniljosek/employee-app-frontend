@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import Button from "../../components/button/button";
 import { useGetEmployeesQuery } from '../../rtk/api';
 
 import './styles.scss';
@@ -8,7 +9,7 @@ import './styles.scss';
 const EmployeeRepository = () => {
     const navigate = useNavigate();
 
-    const { data = [], error, isLoading } = useGetEmployeesQuery();
+    const { data = [], error, isLoading, refetch } = useGetEmployeesQuery();
 
     const tableColumns = [
         "Employee Name",
@@ -19,6 +20,10 @@ const EmployeeRepository = () => {
         "Experience",
         "Action"
     ];
+
+    useEffect(() => {
+        refetch();
+    }, []);
 
     const onCreateEmployeeClick = () => navigate(`/create`);
 
@@ -59,8 +64,8 @@ const EmployeeRepository = () => {
                                     </td>
                                     <td>{employee.experience}</td>
                                     <td >
-                                        <Button label="Delete" className="create1" handleClick={() => { DeleteEmployee(employee.id) }} />
-                                        <Button label="Update" className="update" handleClick={() => { goToNextPage(`/${employee.id}/editpage`) }} />
+                                        <Button label="Delete" handleClick={() => {}} />
+                                        <Button label="Update" handleClick={() => {}} />
                                     </td>
                                 </tr>
                             ))}

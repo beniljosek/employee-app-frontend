@@ -11,7 +11,7 @@ const Dropdown = ({
     return (
         <div className="selectContainer">
             <span className="label">{label}</span>
-            <select className="inputField" onChange={onChange} placeholder={placeHolder}>
+            <select className="inputField" onChange={(e) => onChange(e.target.value)} placeholder={placeHolder}>
                 {options.map((option) => (
                     <option key={option} value={option}>
                         {option}

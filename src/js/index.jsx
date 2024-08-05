@@ -19,7 +19,8 @@ root.render(
                 <Route element={<Login />} path="/" />
                 <Route element={<EmployeeRepository />} path="/repository" />
                 {/* <Route element={<EmployeeDetails />} path="/" /> */}
-                <Route element={<CreateEditEmployee />} path="/create" />
+                <Route element={<CreateEditEmployee mode="create" />} path="/create" />
+                <Route element={<CreateEditEmployee mode="edit" />} path="/edit/:id" />
             </Routes>
         </BrowserRouter>
     </Provider>

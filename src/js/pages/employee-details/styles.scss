@@ -1,0 +1,47 @@
+@import '../../theme/variables.scss';
+
+.employeeDetailsContainer {
+    .header {
+        box-shadow: 0px 3px 6px #9D9D9D29;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-radius: 8px;
+
+        .createButton {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+
+            .createCircle {
+                padding: 10px 15px;
+                background-color: $lightBlue;
+                border-radius: 100%;
+                position: absolute;
+                left: -22px;
+            }
+
+            .createText {
+                background-color: $skyBlue;
+                padding: 10px 20px;
+                border-top-right-radius: 16px;
+                border-bottom-right-radius: 16px;
+                box-shadow: 0 1px 9px 1px #9D9D9D29;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    .detailsContainer {
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 3px 6px #9D9D9D29;
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+    }
+}
