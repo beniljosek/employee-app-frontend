@@ -7,7 +7,8 @@ const FormInput = ({
     label,
     onChange,
     placeHolder,
-    type
+    type,
+    value
 }) => {
     return (
         <div className="formInputContainer">
@@ -18,6 +19,7 @@ const FormInput = ({
                 type={type}
                 onChange={(event) => onChange(event.target.value)}
                 placeholder={placeHolder}
+                value={value}
             />
         </div>
     );

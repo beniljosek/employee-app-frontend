@@ -18,7 +18,7 @@ root.render(
             <Routes>
                 <Route element={<Login />} path="/" />
                 <Route element={<EmployeeRepository />} path="/repository" />
-                {/* <Route element={<EmployeeDetails />} path="/" /> */}
+                <Route element={<EmployeeDetails />} path="/employee/:id" />
                 <Route element={<CreateEditEmployee mode="create" />} path="/create" />
                 <Route element={<CreateEditEmployee mode="edit" />} path="/edit/:id" />
             </Routes>

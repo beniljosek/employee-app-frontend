@@ -32,8 +32,6 @@ const EmployeeRepository = () => {
 
     const onCreateEmployeeClick = () => navigate(`/create`);
 
-    const onEmployeeNameClick = (id) => navigate(`/employee/${id}`);
-
     const onDeleteEmployeeConfirm = () => {
         deleteEmployee(deleteDialogData.id);
         setDeleteDialogData(defaultDialogData);
@@ -66,7 +64,7 @@ const EmployeeRepository = () => {
                         <tbody>
                             {data.map((employee) => (
                                 <tr key={employee.id} >
-                                    <td onClick={() => onEmployeeNameClick(employee.id)}>{employee.name}</td>
+                                    <td className="name" onClick={() => navigate(`/employee/${employee.id}`)}>{employee.name}</td>
                                     <td>{employee.id}</td>
                                     <td>{employee.joiningdate}</td>
                                     <td>{employee.role}</td>
@@ -76,7 +74,7 @@ const EmployeeRepository = () => {
                                     <td>{employee.experience}</td>
                                     <td >
                                         <Button label="Delete" handleClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })} />
-                                        <Button label="Update" handleClick={() => navigate(`edit/${employee.id}`)} />
+                                        <Button label="Update" handleClick={() => navigate(`/edit/${employee.id}`)} />
                                     </td>
                                 </tr>
                             ))}

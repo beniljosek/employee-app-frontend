@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import FormInput from "../../components/form-input/formInput";
 import Dropdown from "../../components/dropdown/dropdown";
 import Button from "../../components/button/button";
-import { useCreateEmployeeMutation, useGetEmployeeQuery } from "../../rtk/api";
+import { useCreateEmployeeMutation, useGetEmployeeQuery, useUpdateEmployeeMutation } from "../../rtk/api";
 
 import './styles.scss';
 
-const CreateEditEmployee = ({ id, mode }) => {
+const CreateEditEmployee = ({ mode }) => {
     const navigate = useNavigate();
+    const { id } = useParams();
 
     const defaultEmployeeState = {
         name: "",
@@ -21,36 +22,54 @@ const CreateEditEmployee = ({ id, mode }) => {
         role: "",
         // status: "",
         address: "",
-        pincode: ""
+        pincode: "",
+        id: ''
     }
 
     const [employee, setEmployee] = useState(defaultEmployeeState);
 
-    const { data = {}, isSuccess } = useGetEmployeeQuery(1);
+    const { data = {}, isSuccess } = useGetEmployeeQuery(id);
     const [createEmployee, result] = useCreateEmployeeMutation();
+    const [updateEmployee] = useUpdateEmployeeMutation();
 
     const roleOptions = ["DEVELOPER", "UI", "UX", "HR"];
     const statusOptions = ["ACTIVE", "INACTIVE"];
 
     const fieldList = [
-        { label: "Employee Name", key: "name", type: "text" },
-        { label: "Email", key: "email", type: "text" },
-        { label: "Experience (Yrs)", key: "experience", type: "number" },
-        { label: "Password", key: "password", type: "password" },
+        { label: "Employee Name", key: "name", type: "text", value: employee.name },
+        { label: "Email", key: "email", type: "text", value: employee.email },
+        { label: "Experience (Yrs)", key: "experience", type: "number", value: employee.experience },
+        { label: "Password", key: "password", type: "password", value: "" },
         // { label: "Department", key: "department", type: "text" },
         // { label: "Joining Date", key: "date", type: "text" },
-        { label: "Role", key: "role", options: roleOptions },
+        { label: "Role", key: "role", options: roleOptions, value: employee.role },
         // { label: "Status", key: "status", options: statusOptions },
-        { label: "Address", key: "address", type: "text" },
-        { label: "Pincode", key: "pincode", type: "number" },
-        { label: "Employee ID", key: "empId", type: "text", disabled: true },
+        { label: "Address", key: "address", type: "text", value: employee.address?.line1 },
+        { label: "Pincode", key: "pincode", type: "number", value: employee.address?.pincode },
+        { label: "Employee ID", key: "id", type: "text", disabled: true, value: id },
     ];
 
     useEffect(() => {
         if (mode === "edit") {
-            console.log(id, data);
+            if (data) {
+                // console.log(data);
+                setEmployee({
+                    name: data.name,
+                    email: data.email,
+                    password: "",
+                    experience: data.experience,
+                    // department: "",
+                    // date: "",
+                    role: data.role,
+                    // status: "",
+                    address: data.address?.line1,
+                    pincode: data.address?.pincode,
+                    id: data.id
+                })
+            }
         }
     }, [id, data, isSuccess]);
+    // console.log(employee);
 
     useEffect(() => {
         if (result.isSuccess) {
@@ -64,7 +83,7 @@ const CreateEditEmployee = ({ id, mode }) => {
         setEmployee((current) => ({ ...current, [key]: value }))
     }
 
-    const onSelectInput = (key, value)  => {
+    const onSelectInput = (key, value) => {
         setEmployee((current) => ({ ...current, [key]: value }))
     }
 
@@ -81,6 +100,10 @@ const CreateEditEmployee = ({ id, mode }) => {
         });
     }
 
+    const onUpdateClick = () => {
+        updateEmployee(employee);
+    }
+
     const onCancelClick = () => {
         setEmployee(defaultEmployeeState);
         navigate(`/repository`);
@@ -93,7 +116,7 @@ const CreateEditEmployee = ({ id, mode }) => {
             </div>
             <div className="formContainer">
                 <div className="formSection">
-                    {fieldList.map(({ label, key, type, options, disabled }) => {
+                    {fieldList.map(({ label, key, type, options, disabled, value }) => {
                         return type ? (
                             <FormInput
                                 disabled={disabled}
@@ -101,6 +124,7 @@ const CreateEditEmployee = ({ id, mode }) => {
                                 onChange={(value) => onChangeInput(key, value)}
                                 placeHolder={label}
                                 type={type}
+                                value={value}
                                 key={key}
                             />
                         ) : (
@@ -109,13 +133,14 @@ const CreateEditEmployee = ({ id, mode }) => {
                                 onChange={(value) => onSelectInput(key, value)}
                                 placeHolder={label}
                                 options={options}
+                                value={value}
                                 key={key}
                             />
                         )
                     })}
                 </div>
                 <div className="buttonsContainer">
-                    <Button handleClick={onCreateClick} label="Create" />
+                    <Button handleClick={mode === "create" ? onCreateClick : onUpdateClick} label={mode === "create" ? "Create" : "Save"} />
                     <Button handleClick={onCancelClick} label="Cancel" />
                 </div>
             </div>
