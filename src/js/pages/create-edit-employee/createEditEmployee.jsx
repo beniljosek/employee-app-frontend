@@ -9,7 +9,6 @@ import { useCreateEmployeeMutation, useGetEmployeeQuery } from "../../rtk/api";
 import './styles.scss';
 
 const CreateEditEmployee = ({ id, mode }) => {
-    console.log('mode', mode);
     const navigate = useNavigate();
 
     const defaultEmployeeState = {
@@ -54,7 +53,6 @@ const CreateEditEmployee = ({ id, mode }) => {
     }, [id, data, isSuccess]);
 
     useEffect(() => {
-        console.log(result.isSuccess);
         if (result.isSuccess) {
             navigate('/repository');
         } else if (result.isError) {

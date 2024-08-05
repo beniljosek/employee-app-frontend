@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import Button from "../../components/button/button";
-import { useGetEmployeesQuery } from '../../rtk/api';
+import DeleteEmployeeDialog from "../../components/delete-employee-dialog/deleteEmployeeDialog";
+import { useDeleteEmployeeMutation, useGetEmployeesQuery } from '../../rtk/api';
 
 import './styles.scss';
 
 const EmployeeRepository = () => {
     const navigate = useNavigate();
 
+    const defaultDialogData = { id: '', isOpen: false };
+    const [deleteDialogData, setDeleteDialogData] = useState(defaultDialogData);
+
     const { data = [], error, isLoading, refetch } = useGetEmployeesQuery();
+    const [deleteEmployee] = useDeleteEmployeeMutation();
 
     const tableColumns = [
         "Employee Name",
@@ -29,8 +34,14 @@ const EmployeeRepository = () => {
 
     const onEmployeeNameClick = (id) => navigate(`/employee/${id}`);
 
+    const onDeleteEmployeeConfirm = () => {
+        deleteEmployee(deleteDialogData.id);
+        setDeleteDialogData(defaultDialogData);
+    };
+
+
     return (
-        <div className="emplyeeListContainer">
+        <div className="employeeListContainer">
             <div className="leftSidebar">
                 <img src="./src/js/icons/kv-logo.png" alt="logo" />
                 <div className="tab">Employee List</div>
@@ -64,8 +75,8 @@ const EmployeeRepository = () => {
                                     </td>
                                     <td>{employee.experience}</td>
                                     <td >
-                                        <Button label="Delete" handleClick={() => {}} />
-                                        <Button label="Update" handleClick={() => {}} />
+                                        <Button label="Delete" handleClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })} />
+                                        <Button label="Update" handleClick={() => navigate(`edit/${employee.id}`)} />
                                     </td>
                                 </tr>
                             ))}
@@ -75,6 +86,13 @@ const EmployeeRepository = () => {
                     <div className="listWrapper"></div>
                 </div>
             </div>
+            {deleteDialogData.isOpen && (
+                <DeleteEmployeeDialog
+                    isOpen={deleteDialogData.isOpen}
+                    onClose={() => setDeleteDialogData(defaultDialogData)}
+                    onConfirm={onDeleteEmployeeConfirm}
+                />
+            )}
         </div>
     );
 };

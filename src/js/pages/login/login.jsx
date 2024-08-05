@@ -15,7 +15,6 @@ const Login = () => {
     const [login, result] = useLoginMutation();
 
     useEffect(() => {
-        console.log('result', result);
         if (result.isSuccess && result.data.data.token) {
             localStorage.setItem("token", result.data.data.token);
             navigate("/repository");

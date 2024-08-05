@@ -1,0 +1,54 @@
+@import '../../theme/variables.scss';
+
+.deleteBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .deleteDialogContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        background-color: $white;
+        border-radius: 8px;
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+
+            .closeButtton {
+                cursor: pointer;
+            }
+        }
+
+        .textWrapper {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            .mainText {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .subText {
+                font-size: 14px;
+                text-align: center;
+            }
+        }
+
+        .buttonsContainer {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            width: 300px;
+        }
+    }
+}
