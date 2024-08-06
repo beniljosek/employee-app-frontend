@@ -13,7 +13,7 @@ const DeleteEmployeeDialog = ({ isOpen, onClose, onConfirm }) => {
         <div className="deleteBackground">
             <div className="deleteDialogContainer">
                 <div className="header">
-                    <span className="closeButtton" role="presentation" onClick={onClose}>X</span>
+                    <img src="icons/close.svg" alt="close" className="closeButtton" role="presentation" onClick={onClose} />
                 </div>
                 <div className="textWrapper">
                     <span className="mainText">Are you sure ?</span>

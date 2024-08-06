@@ -38,12 +38,9 @@ const CreateEditEmployee = ({ mode }) => {
     const fieldList = [
         { label: "Employee Name", key: "name", type: "text", value: employee.name },
         { label: "Email", key: "email", type: "text", value: employee.email },
-        { label: "Experience (Yrs)", key: "experience", type: "number", value: employee.experience },
-        { label: "Password", key: "password", type: "password", value: "" },
-        // { label: "Department", key: "department", type: "text" },
-        { label: "Joining Date", key: "createdAt", type: "text" },
+        { label: "Password", key: "password", type: "password", disabled: mode === "edit",  value: employee.password },
+        { label: "Joining Date", key: "createdAt", type: "text",disabled: true,  value: employee.createdAt },
         { label: "Role", key: "role", options: roleOptions, value: employee.role },
-        // { label: "Status", key: "status", options: statusOptions },
         { label: "Address", key: "address", type: "text", value: employee.address?.line1 },
         { label: "Pincode", key: "pincode", type: "number", value: employee.address?.pincode },
         { label: "Employee ID", key: "id", type: "text", disabled: true, value: id },
@@ -52,16 +49,13 @@ const CreateEditEmployee = ({ mode }) => {
     useEffect(() => {
         if (mode === "edit") {
             if (data) {
-                // console.log(data);
                 setEmployee({
                     name: data.name,
                     email: data.email,
                     password: "",
                     experience: data.experience,
-                    // department: "",
-                    date: "",
+                    date: data.createdAt,
                     role: data.role,
-                    // status: "",
                     address: data.address?.line1,
                     pincode: data.address?.pincode,
                     id: data.id
@@ -69,7 +63,6 @@ const CreateEditEmployee = ({ mode }) => {
             }
         }
     }, [id, data, isSuccess]);
-    // console.log(employee);
 
     useEffect(() => {
         if (result.isSuccess) {
@@ -88,12 +81,16 @@ const CreateEditEmployee = ({ mode }) => {
     }
 
     const getInputValue = (key, value) => {
+        console.log(key, value);
         if (key === 'createdAt') {
             const date = new Date(value);
-            return date.toLocaleString()
+            // console.log(value, date.toLocaleString());
+            // return date.toLocaleString().toString() || "";
+            return value || "";
         }
-        return value;
+        return value || "";
     }
+    console.log(employee);
 
     const onCreateClick = () => {
         createEmployee({
