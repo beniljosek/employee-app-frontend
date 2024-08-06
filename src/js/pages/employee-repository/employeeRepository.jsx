@@ -46,7 +46,7 @@ const EmployeeRepository = () => {
     return (
         <div className="employeeListContainer">
             <div className="leftSidebar">
-                <img src="./src/js/icons/kv-logo.png" alt="logo" />
+                <img className="kvIcon" src="icons/kv-logo.png" alt="logo" />
                 <div className="tab">Employee List</div>
             </div>
             <div className="rightSection">
@@ -77,8 +77,18 @@ const EmployeeRepository = () => {
                                     <td>{employee.experience}</td>
                                     <td>
                                         <div className="actionButtons">
-                                            <Button label="Delete" handleClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })} />
-                                            <Button label="Update" handleClick={() => navigate(`/edit/${employee.id}`)} variant="secondary" />
+                                            <img
+                                                src="icons/trash.svg"
+                                                title="Delete"
+                                                onClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })}
+                                                alt="delete-employee"
+                                            />
+                                            <img
+                                                src="icons/edit.svg"
+                                                title="Edit"
+                                                onClick={() => navigate(`/edit/${employee.id}`)}
+                                                alt="edit-employee"
+                                            />
                                         </div>
                                     </td>
                                 </tr>

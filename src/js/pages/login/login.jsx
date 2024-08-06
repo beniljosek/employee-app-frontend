@@ -35,7 +35,7 @@ const Login = () => {
             <div className="leftSection"></div>
             <div className="rightSection">
                 <div className="loginForm">
-                    <img src="./src/js/icons/kv-logo.png" alt="logo" />
+                    <img className="kvIcon" src="/icons/kv-logo.png" alt="logo" />
                     <FormInput type="text" id="username" label="Username" placeHolder="Enter Username" onChange={(value) => onChangeInput("email", value)} />
                     <FormInput type="password" id="password" label="Password" placeHolder="Enter Password" onChange={(value) => onChangeInput("password", value)} />
                     <Button label="Login" handleClick={onLoginClick} />

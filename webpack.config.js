@@ -19,7 +19,9 @@ module.exports = {
         }),
     ],
     devServer: {
-        port: 3030, // you can change the port
+        port: 3030,
+        historyApiFallback: true,
+        hot: true
     },
     module: {
         rules: [
@@ -34,10 +36,10 @@ module.exports = {
                 test: /\.(sa|sc|c)ss$/, // styles files
                 use: ["style-loader", "css-loader", "sass-loader"],
             },
-            // {
-            //     test: /\.(png|svg|jpg|jpeg|gif)$/i,
-            //     type: 'icons',
-            // }
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i, 
+                loader: 'file-loader',
+            }
         ],
     },
 };
