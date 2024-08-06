@@ -4,11 +4,9 @@ export const employeeApi = createApi({
     reducerPath: 'employee',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3000/',
-        mode: "cors",
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("token");
             if (token) {
-                headers.set("Content-Type", "application/json");
                 headers.set("Authorization", `Bearer ${token}`);
             }
             return headers;

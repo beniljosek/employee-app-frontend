@@ -43,7 +43,7 @@ const CreateEditEmployee = ({ mode }) => {
         { label: "Role", key: "role", options: roleOptions, value: employee.role },
         { label: "Address", key: "address", type: "text", value: employee.address?.line1 },
         { label: "Pincode", key: "pincode", type: "number", value: employee.address?.pincode },
-        { label: "Employee ID", key: "id", type: "text", disabled: true, value: id },
+        { label: "Employee ID", key: "id", type: "text", disabled: true, show: mode === 'edit', value: id },
     ];
 
     useEffect(() => {
@@ -90,7 +90,6 @@ const CreateEditEmployee = ({ mode }) => {
         }
         return value || "";
     }
-    console.log(employee);
 
     const onCreateClick = () => {
         createEmployee({
@@ -121,27 +120,30 @@ const CreateEditEmployee = ({ mode }) => {
             </div>
             <div className="formContainer">
                 <div className="formSection">
-                    {fieldList.map(({ label, key, type, options, disabled, value }) => {
-                        return type ? (
-                            <FormInput
-                                disabled={disabled}
-                                label={label}
-                                onChange={(value) => onChangeInput(key, value)}
-                                placeHolder={label}
-                                type={type}
-                                value={getInputValue(key, value)}
-                                key={key}
-                            />
-                        ) : (
-                            <Dropdown
-                                label={label}
-                                onChange={(value) => onSelectInput(key, value)}
-                                placeHolder={label}
-                                options={options}
-                                value={value}
-                                key={key}
-                            />
-                        )
+                    {fieldList.map(({ label, key, type, options, disabled, show = true, value }) => {
+                        if (show) {
+                            return type ? (
+                                <FormInput
+                                    disabled={disabled}
+                                    label={label}
+                                    onChange={(value) => onChangeInput(key, value)}
+                                    placeHolder={label}
+                                    type={type}
+                                    value={getInputValue(key, value)}
+                                    key={key}
+                                />
+                            ) : (
+                                <Dropdown
+                                    label={label}
+                                    onChange={(value) => onSelectInput(key, value)}
+                                    placeHolder={label}
+                                    options={options}
+                                    value={value}
+                                    key={key}
+                                />
+                            )
+                        }
+                        return null;
                     })}
                 </div>
                 <div className="buttonsContainer">
