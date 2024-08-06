@@ -13,7 +13,7 @@ const EmployeeRepository = () => {
     const defaultDialogData = { id: '', isOpen: false };
     const [deleteDialogData, setDeleteDialogData] = useState(defaultDialogData);
 
-    const { data = [], error, isLoading, refetch } = useGetEmployeesQuery();
+    const { data = [], refetch } = useGetEmployeesQuery();
     const [deleteEmployee] = useDeleteEmployeeMutation();
 
     const tableColumns = [
@@ -31,6 +31,11 @@ const EmployeeRepository = () => {
     }, []);
 
     const onCreateEmployeeClick = () => navigate(`/create`);
+
+    const getDateValue = (value) => {
+        const date = new Date(value);
+        return date.toLocaleString()
+    }
 
     const onDeleteEmployeeConfirm = () => {
         deleteEmployee(deleteDialogData.id);
@@ -66,15 +71,15 @@ const EmployeeRepository = () => {
                                 <tr key={employee.id} >
                                     <td className="name" onClick={() => navigate(`/employee/${employee.id}`)}>{employee.name}</td>
                                     <td>{employee.id}</td>
-                                    <td>{employee.joiningdate}</td>
+                                    <td>{getDateValue(employee.createdAt)}</td>
                                     <td>{employee.role}</td>
-                                    <td >
-                                        <span className={employee.status}>{employee.status}</span>
-                                    </td>
+                                    <td className={employee.status}>{employee.status}</td>
                                     <td>{employee.experience}</td>
-                                    <td >
-                                        <Button label="Delete" handleClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })} />
-                                        <Button label="Update" handleClick={() => navigate(`/edit/${employee.id}`)} />
+                                    <td>
+                                        <div className="actionButtons">
+                                            <Button label="Delete" handleClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })} />
+                                            <Button label="Update" handleClick={() => navigate(`/edit/${employee.id}`)} />
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

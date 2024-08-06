@@ -35,6 +35,9 @@
     }
 
     .detailsContainer {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 20px;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0px 3px 6px #9D9D9D29;
@@ -42,6 +45,17 @@
         .row {
             display: flex;
             gap: 20px;
+
+        }
+
+        .detailCard {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .label {
+                color: $lightGrey;
+            }
         }
     }
 }

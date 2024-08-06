@@ -41,7 +41,7 @@ const CreateEditEmployee = ({ mode }) => {
         { label: "Experience (Yrs)", key: "experience", type: "number", value: employee.experience },
         { label: "Password", key: "password", type: "password", value: "" },
         // { label: "Department", key: "department", type: "text" },
-        // { label: "Joining Date", key: "date", type: "text" },
+        { label: "Joining Date", key: "createdAt", type: "text" },
         { label: "Role", key: "role", options: roleOptions, value: employee.role },
         // { label: "Status", key: "status", options: statusOptions },
         { label: "Address", key: "address", type: "text", value: employee.address?.line1 },
@@ -59,7 +59,7 @@ const CreateEditEmployee = ({ mode }) => {
                     password: "",
                     experience: data.experience,
                     // department: "",
-                    // date: "",
+                    date: "",
                     role: data.role,
                     // status: "",
                     address: data.address?.line1,
@@ -85,6 +85,14 @@ const CreateEditEmployee = ({ mode }) => {
 
     const onSelectInput = (key, value) => {
         setEmployee((current) => ({ ...current, [key]: value }))
+    }
+
+    const getInputValue = (key, value) => {
+        if (key === 'createdAt') {
+            const date = new Date(value);
+            return date.toLocaleString()
+        }
+        return value;
     }
 
     const onCreateClick = () => {
@@ -124,7 +132,7 @@ const CreateEditEmployee = ({ mode }) => {
                                 onChange={(value) => onChangeInput(key, value)}
                                 placeHolder={label}
                                 type={type}
-                                value={value}
+                                value={getInputValue(key, value)}
                                 key={key}
                             />
                         ) : (

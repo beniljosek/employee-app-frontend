@@ -81,11 +81,20 @@
                     td {
                         text-align: center;
                         width: calc(100%/7);
+
+                        .actionButtons {
+                            display: flex;
+                            gap: 10px;
+                            width: 80%;
+                            justify-content: center;
+                            align-items: center;
+                        }
                     }
 
                     .name {
                         cursor: pointer;
                     }
+
                 }
 
 
