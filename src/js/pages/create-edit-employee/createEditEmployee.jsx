@@ -149,7 +149,7 @@ const CreateEditEmployee = ({ mode }) => {
                 </div>
                 <div className="buttonsContainer">
                     <Button handleClick={mode === "create" ? onCreateClick : onUpdateClick} label={mode === "create" ? "Create" : "Save"} />
-                    <Button handleClick={onCancelClick} label="Cancel" />
+                    <Button handleClick={onCancelClick} label="Cancel" variant="secondary" />
                 </div>
             </div>
         </div>

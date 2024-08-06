@@ -21,7 +21,7 @@ const DeleteEmployeeDialog = ({ isOpen, onClose, onConfirm }) => {
                 </div>
                 <div className="buttonsContainer">
                     <Button handleClick={onConfirm} label="Confirm" />
-                    <Button handleClick={onClose} label="Cancel" />
+                    <Button handleClick={onClose} label="Cancel" variant="secondary" />
                 </div>
             </div>
         </div>

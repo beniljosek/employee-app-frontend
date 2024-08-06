@@ -78,7 +78,7 @@ const EmployeeRepository = () => {
                                     <td>
                                         <div className="actionButtons">
                                             <Button label="Delete" handleClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })} />
-                                            <Button label="Update" handleClick={() => navigate(`/edit/${employee.id}`)} />
+                                            <Button label="Update" handleClick={() => navigate(`/edit/${employee.id}`)} variant="secondary" />
                                         </div>
                                     </td>
                                 </tr>
