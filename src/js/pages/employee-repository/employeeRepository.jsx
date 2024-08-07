@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import Button from "../../components/button/button";
 import DeleteEmployeeDialog from "../../components/delete-employee-dialog/deleteEmployeeDialog";
-import { useDeleteEmployeeMutation, useGetEmployeesQuery } from '../../rtk/api';
+import { useDeleteEmployeeMutation, useGetEmployeesQuery } from "./api";
 
 import './styles.scss';
 

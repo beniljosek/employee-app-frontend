@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { useGetEmployeeQuery } from "../employee-repository/api";
+
 import './styles.scss';
-import { useGetEmployeeQuery } from "../../rtk/api";
 
 const EmployeeDetails = () => {
     const navigate = useNavigate();

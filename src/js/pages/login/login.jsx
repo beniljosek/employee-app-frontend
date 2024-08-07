@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FormInput from "../../components/form-input/formInput";
 import Button from "../../components/button/button";
-import { useLoginMutation } from "../../rtk/api";
+import { useLoginMutation } from "./api";
 
 import './styles.scss';
 

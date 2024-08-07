@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from "../../components/form-input/formInput";
 import Dropdown from "../../components/dropdown/dropdown";
 import Button from "../../components/button/button";
-import { useCreateEmployeeMutation, useGetEmployeeQuery, useUpdateEmployeeMutation } from "../../rtk/api";
+import { useCreateEmployeeMutation, useGetEmployeeQuery, useUpdateEmployeeMutation } from "../employee-repository/api";
 
 import './styles.scss';
 
