@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
 
+import { setDeleteDialogData, resetDeleteDialogData } from "../../store/slice/deleteDialogSlice";
 import DeleteEmployeeDialog from "../../components/delete-employee-dialog/deleteEmployeeDialog";
 import { useDeleteEmployeeMutation, useGetEmployeesQuery } from "./api";
 
@@ -8,12 +10,14 @@ import './styles.scss';
 
 const EmployeeRepository = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const defaultDialogData = { id: '', isOpen: false };
-    const [deleteDialogData, setDeleteDialogData] = useState(defaultDialogData);
+    const deleteDialogData = useSelector((state) => state.deleteDialogData.value);
 
     const { data = [], refetch } = useGetEmployeesQuery();
     const [deleteEmployee] = useDeleteEmployeeMutation();
+
+    const defaultDialogData = { id: '', isOpen: false };
 
     const tableColumns = [
         "Employee Name",
@@ -38,7 +42,7 @@ const EmployeeRepository = () => {
 
     const onDeleteEmployeeConfirm = () => {
         deleteEmployee(deleteDialogData.id);
-        setDeleteDialogData(defaultDialogData);
+        dispatch(setDeleteDialogData(defaultDialogData));
     };
 
 
@@ -79,7 +83,7 @@ const EmployeeRepository = () => {
                                             <img
                                                 src="icons/trash.svg"
                                                 title="Delete"
-                                                onClick={() => setDeleteDialogData({ id: employee.id, isOpen: true })}
+                                                onClick={() => dispatch(setDeleteDialogData({ id: employee.id, isOpen: true }))}
                                                 alt="delete-employee"
                                             />
                                             <img
@@ -94,14 +98,12 @@ const EmployeeRepository = () => {
                             ))}
                         </tbody>
                     </table>
-                    <div className="tableHeader"></div>
-                    <div className="listWrapper"></div>
                 </div>
             </div>
             {deleteDialogData.isOpen && (
                 <DeleteEmployeeDialog
                     isOpen={deleteDialogData.isOpen}
-                    onClose={() => setDeleteDialogData(defaultDialogData)}
+                    onClose={() => dispatch(setDeleteDialogData(defaultDialogData))}
                     onConfirm={onDeleteEmployeeConfirm}
                 />
             )}

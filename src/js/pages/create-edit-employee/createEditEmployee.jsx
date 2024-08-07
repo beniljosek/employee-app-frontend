@@ -17,10 +17,8 @@ const CreateEditEmployee = ({ mode }) => {
         email: "",
         password: "",
         experience: "",
-        // department: "",
-        // date: "",
+        createdAt: "",
         role: "",
-        // status: "",
         address: "",
         pincode: "",
         id: ''
@@ -33,7 +31,6 @@ const CreateEditEmployee = ({ mode }) => {
     const [updateEmployee] = useUpdateEmployeeMutation();
 
     const roleOptions = ["DEVELOPER", "UI", "UX", "HR"];
-    const statusOptions = ["ACTIVE", "INACTIVE"];
 
     const fieldList = [
         { label: "Employee Name", key: "name", type: "text", value: employee.name },
@@ -54,7 +51,7 @@ const CreateEditEmployee = ({ mode }) => {
                     email: data.email,
                     password: "",
                     experience: data.experience,
-                    date: data.createdAt,
+                    createdAt: data.createdAt,
                     role: data.role,
                     address: data.address?.line1,
                     pincode: data.address?.pincode,
@@ -81,12 +78,9 @@ const CreateEditEmployee = ({ mode }) => {
     }
 
     const getInputValue = (key, value) => {
-        console.log(key, value);
         if (key === 'createdAt') {
             const date = new Date(value);
-            // console.log(value, date.toLocaleString());
-            // return date.toLocaleString().toString() || "";
-            return value || "";
+            return date.toLocaleString().toString() || "";
         }
         return value || "";
     }
